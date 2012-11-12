@@ -91,12 +91,14 @@ int sock_connect(uint32_t ip, int port) {
     {
       cerr << "can't connect to: " ;
       uint32_t pip = ntohl(ip);
-      char* pp = (char*)&pip;
-	
-      for (size_t i = 0; i < 4; i++)
-	{
-	  cerr << (int)pp[i] << ".";
-	}
+      unsigned char* pp = (unsigned char*)&pip;
+
+      for (int i = 3; i >= 0; i--)
+      {
+          cerr << (int)pp[i];
+          if (i) cerr << ".";
+      }
+
       cout << ':' << htons(port) << endl;
       perror(NULL);
       exit(1);
